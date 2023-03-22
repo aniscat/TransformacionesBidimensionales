@@ -38,6 +38,8 @@ namespace TransformacionesBidimensionales
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Graficadora));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.TxtBxNombre = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.TabTransformaciones = new System.Windows.Forms.TabControl();
             this.TabPuntos = new System.Windows.Forms.TabPage();
             this.DataGridViewPuntos = new System.Windows.Forms.DataGridView();
@@ -52,6 +54,11 @@ namespace TransformacionesBidimensionales
             this.LblGrados = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridViewRotaciones = new System.Windows.Forms.DataGridView();
+            this.ColNombreR = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColGrados = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColXR = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColYR = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColColorR = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TabEscalar = new System.Windows.Forms.TabPage();
             this.TabTraslacion = new System.Windows.Forms.TabPage();
             this.TabSesgado = new System.Windows.Forms.TabPage();
@@ -64,11 +71,6 @@ namespace TransformacionesBidimensionales
             this.pictureBoxGrafica = new System.Windows.Forms.PictureBox();
             this.toolTipEscribe = new System.Windows.Forms.ToolTip(this.components);
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
-            this.ColNombreR = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColGrados = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColXR = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColYR = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColColorR = new System.Windows.Forms.DataGridViewTextBoxColumn();
             BtnGraficar = new System.Windows.Forms.Button();
             BtnAñadir = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -96,7 +98,7 @@ namespace TransformacionesBidimensionales
             BtnGraficar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             BtnGraficar.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold);
             BtnGraficar.ForeColor = System.Drawing.Color.Azure;
-            BtnGraficar.Location = new System.Drawing.Point(258, 116);
+            BtnGraficar.Location = new System.Drawing.Point(258, 136);
             BtnGraficar.Name = "BtnGraficar";
             BtnGraficar.Size = new System.Drawing.Size(100, 40);
             BtnGraficar.TabIndex = 7;
@@ -119,7 +121,7 @@ namespace TransformacionesBidimensionales
             BtnAñadir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             BtnAñadir.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold);
             BtnAñadir.ForeColor = System.Drawing.Color.Azure;
-            BtnAñadir.Location = new System.Drawing.Point(158, 116);
+            BtnAñadir.Location = new System.Drawing.Point(158, 136);
             BtnAñadir.Name = "BtnAñadir";
             BtnAñadir.Size = new System.Drawing.Size(87, 40);
             BtnAñadir.TabIndex = 9;
@@ -133,6 +135,8 @@ namespace TransformacionesBidimensionales
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox1.BackColor = System.Drawing.Color.CadetBlue;
             this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.groupBox1.Controls.Add(this.TxtBxNombre);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.TabTransformaciones);
             this.groupBox1.Controls.Add(BtnAñadir);
             this.groupBox1.Controls.Add(this.BtnColor);
@@ -151,6 +155,33 @@ namespace TransformacionesBidimensionales
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Propiedades de puntosRotados";
+            // 
+            // TxtBxNombre
+            // 
+            this.TxtBxNombre.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TxtBxNombre.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtBxNombre.Location = new System.Drawing.Point(132, 48);
+            this.TxtBxNombre.Name = "TxtBxNombre";
+            this.TxtBxNombre.Size = new System.Drawing.Size(226, 28);
+            this.TxtBxNombre.TabIndex = 12;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.CausesValidation = false;
+            this.label2.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(34, 42);
+            this.label2.Name = "label2";
+            this.label2.Padding = new System.Windows.Forms.Padding(7, 5, 5, 5);
+            this.label2.Size = new System.Drawing.Size(101, 38);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Nombre";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // TabTransformaciones
             // 
@@ -321,6 +352,41 @@ namespace TransformacionesBidimensionales
             this.dataGridViewRotaciones.Size = new System.Drawing.Size(406, 344);
             this.dataGridViewRotaciones.TabIndex = 0;
             // 
+            // ColNombreR
+            // 
+            this.ColNombreR.HeaderText = "Nombre";
+            this.ColNombreR.MinimumWidth = 6;
+            this.ColNombreR.Name = "ColNombreR";
+            this.ColNombreR.Width = 125;
+            // 
+            // ColGrados
+            // 
+            this.ColGrados.HeaderText = "Grados";
+            this.ColGrados.MinimumWidth = 6;
+            this.ColGrados.Name = "ColGrados";
+            this.ColGrados.Width = 125;
+            // 
+            // ColXR
+            // 
+            this.ColXR.HeaderText = "X";
+            this.ColXR.MinimumWidth = 6;
+            this.ColXR.Name = "ColXR";
+            this.ColXR.Width = 125;
+            // 
+            // ColYR
+            // 
+            this.ColYR.HeaderText = "Y";
+            this.ColYR.MinimumWidth = 6;
+            this.ColYR.Name = "ColYR";
+            this.ColYR.Width = 125;
+            // 
+            // ColColorR
+            // 
+            this.ColColorR.HeaderText = "Color";
+            this.ColColorR.MinimumWidth = 6;
+            this.ColColorR.Name = "ColColorR";
+            this.ColColorR.Width = 125;
+            // 
             // TabEscalar
             // 
             this.TabEscalar.Location = new System.Drawing.Point(4, 25);
@@ -358,7 +424,7 @@ namespace TransformacionesBidimensionales
             this.BtnColor.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BtnColor.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BtnColor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.BtnColor.Location = new System.Drawing.Point(113, 127);
+            this.BtnColor.Location = new System.Drawing.Point(113, 147);
             this.BtnColor.Name = "BtnColor";
             this.BtnColor.Size = new System.Drawing.Size(26, 26);
             this.BtnColor.TabIndex = 8;
@@ -374,7 +440,7 @@ namespace TransformacionesBidimensionales
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(45, 124);
+            this.label1.Location = new System.Drawing.Point(45, 144);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 28);
             this.label1.TabIndex = 6;
@@ -386,7 +452,7 @@ namespace TransformacionesBidimensionales
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtBxY.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBxY.Location = new System.Drawing.Point(252, 65);
+            this.TxtBxY.Location = new System.Drawing.Point(254, 105);
             this.TxtBxY.Name = "TxtBxY";
             this.TxtBxY.Size = new System.Drawing.Size(100, 28);
             this.TxtBxY.TabIndex = 5;
@@ -399,7 +465,7 @@ namespace TransformacionesBidimensionales
             this.LabelY.AutoSize = true;
             this.LabelY.CausesValidation = false;
             this.LabelY.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelY.Location = new System.Drawing.Point(211, 55);
+            this.LabelY.Location = new System.Drawing.Point(213, 95);
             this.LabelY.Name = "LabelY";
             this.LabelY.Padding = new System.Windows.Forms.Padding(7, 5, 5, 5);
             this.LabelY.Size = new System.Drawing.Size(35, 38);
@@ -412,7 +478,7 @@ namespace TransformacionesBidimensionales
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TxtBxX.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtBxX.Location = new System.Drawing.Point(73, 65);
+            this.TxtBxX.Location = new System.Drawing.Point(75, 105);
             this.TxtBxX.Name = "TxtBxX";
             this.TxtBxX.Size = new System.Drawing.Size(100, 28);
             this.TxtBxX.TabIndex = 3;
@@ -425,7 +491,7 @@ namespace TransformacionesBidimensionales
             this.LabelX.AutoSize = true;
             this.LabelX.CausesValidation = false;
             this.LabelX.Font = new System.Drawing.Font("Nirmala UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelX.Location = new System.Drawing.Point(32, 55);
+            this.LabelX.Location = new System.Drawing.Point(34, 95);
             this.LabelX.Name = "LabelX";
             this.LabelX.Padding = new System.Windows.Forms.Padding(7, 5, 5, 5);
             this.LabelX.Size = new System.Drawing.Size(35, 38);
@@ -450,41 +516,6 @@ namespace TransformacionesBidimensionales
             // 
             this.toolTipEscribe.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.toolTipEscribe.IsBalloon = true;
-            // 
-            // ColNombreR
-            // 
-            this.ColNombreR.HeaderText = "Nombre";
-            this.ColNombreR.MinimumWidth = 6;
-            this.ColNombreR.Name = "ColNombreR";
-            this.ColNombreR.Width = 125;
-            // 
-            // ColGrados
-            // 
-            this.ColGrados.HeaderText = "Grados";
-            this.ColGrados.MinimumWidth = 6;
-            this.ColGrados.Name = "ColGrados";
-            this.ColGrados.Width = 125;
-            // 
-            // ColXR
-            // 
-            this.ColXR.HeaderText = "X";
-            this.ColXR.MinimumWidth = 6;
-            this.ColXR.Name = "ColXR";
-            this.ColXR.Width = 125;
-            // 
-            // ColYR
-            // 
-            this.ColYR.HeaderText = "Y";
-            this.ColYR.MinimumWidth = 6;
-            this.ColYR.Name = "ColYR";
-            this.ColYR.Width = 125;
-            // 
-            // ColColorR
-            // 
-            this.ColColorR.HeaderText = "Color";
-            this.ColColorR.MinimumWidth = 6;
-            this.ColColorR.Name = "ColColorR";
-            this.ColColorR.Width = 125;
             // 
             // Graficadora
             // 
@@ -552,6 +583,8 @@ namespace TransformacionesBidimensionales
         private DataGridViewTextBoxColumn ColXR;
         private DataGridViewTextBoxColumn ColYR;
         private DataGridViewTextBoxColumn ColColorR;
+        private TextBox TxtBxNombre;
+        private Label label2;
     }
 }
 

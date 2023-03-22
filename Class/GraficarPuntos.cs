@@ -21,6 +21,8 @@ namespace TransformacionesBidimensionales.Class
         private int xcentro, ycentro;
         private int[] x;
         private int[] y;
+
+        private int ESCALA =10;
         public GraficarPuntos(PictureBox pictureBoxGrafica, Color color)
         {
             //    this.TxtBxX = TxtBxX;
@@ -47,7 +49,7 @@ namespace TransformacionesBidimensionales.Class
             vector = pictureBoxGrafica.CreateGraphics();
             vector.TranslateTransform(xcentro, ycentro);
 
-            RectangleF rect = new RectangleF(Convert.ToInt32(x1),-Convert.ToInt32(y1), 3F, 3F);
+            RectangleF rect = new RectangleF(ESCALA*Convert.ToInt32(x1),ESCALA*-Convert.ToInt32(y1), 3F, 3F);
             //RectangleF rect = new RectangleF(10, 10, 10F, 100F);
             vector.DrawEllipse(lapiz, rect);
             //pictureBoxGrafica.On

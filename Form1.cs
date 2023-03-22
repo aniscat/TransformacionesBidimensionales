@@ -37,53 +37,65 @@ namespace TransformacionesBidimensionales
             this.xcentro = pictureBoxGrafica.Width / 2;
             this.ycentro = pictureBoxGrafica.Height / 2;
             Pen lapiz = new Pen(Color.Black, 2);
-            
+
             e.Graphics.TranslateTransform(this.xcentro, this.ycentro);
             //e.Graphics.
             //
             //e.Graphics.ScaleTransform(1, -1);
 
             //Dibujando ejes
-            e.Graphics.DrawLine(lapiz, this.xcentro *-1, 0, this.xcentro * 2,0);
-            e.Graphics.DrawLine(lapiz, 0, this.ycentro * -1, 0, this.xcentro * 2);
+            e.Graphics.DrawLine(lapiz, -this.xcentro, 0, this.xcentro * 2, 0);
+            e.Graphics.DrawLine(lapiz, 0, -this.ycentro, 0, this.xcentro * 2);
 
             //Dibujando regla Regla
             lapiz.Width = 1;
-            for (int i = 0;i< this.xcentro; i += escala)
+            for (int i = 0; i < this.xcentro; i += escala)
             {
                 e.Graphics.DrawLine(lapiz, i, 3, i, -3);
                 e.Graphics.DrawLine(lapiz, -i, 3, -i, -3);
             }
             for (int i = 0; i < this.ycentro; i += escala)
             {
-                e.Graphics.DrawLine(lapiz, 3,i, -3, i);
+                e.Graphics.DrawLine(lapiz, 3, i, -3, i);
                 e.Graphics.DrawLine(lapiz, 3, -i, -3, -i);
+            }
+
+
+            this.puntosOriginales = new List<NodoPunto> { };
+            this.puntosRotados = new List<NodoPunto> { };
+            if (this.puntosOriginales.Count != 0)
+            {
+                BtnGraficar_Click(sender, e);
+            }
+            if (this.puntosRotados.Count != 0)
+            {
+                BtnRotar_Click(sender, e);
             }
 
 
 
         }
-
+        //Esta funcion no me funciona ;(
         private void Graficadora_SizeChanged(object sender, EventArgs e)
         {
             //Redibujando lo que haya en el picturebox}
             this.puntosOriginales = new List<NodoPunto> { };
             this.puntosRotados = new List<NodoPunto> { };
-            if( this.puntosOriginales.Count !=0)
+            if (this.puntosOriginales.Count != 0)
             {
                 BtnGraficar_Click(sender, e);
             }
-            if (this.puntosRotados.Count!=0)
+            if (this.puntosRotados.Count != 0)
             {
                 BtnRotar_Click(sender, e);
             }
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
-           this.color = colorDialog1.Color ;
+            this.color = colorDialog1.Color;
             BtnColor.BackColor = this.color;
         }
 
@@ -91,35 +103,60 @@ namespace TransformacionesBidimensionales
         {
             //Pasar como parametro el color :)
 
-            double x1 = Convert.ToDouble(TxtBxX.Text.ToString());
-            double y1 = Convert.ToDouble(TxtBxY.Text.ToString());
-            for (int i = 0; i < puntosOriginales.Count; i++)
+            try
             {
-                p.dibujar(puntosOriginales[i].GetColor(), puntosOriginales[i].GetX(), puntosOriginales[i].GetY(), this.xcentro,this.ycentro);
-             
+                double x1 = Convert.ToDouble(TxtBxX.Text.ToString());
+                double y1 = Convert.ToDouble(TxtBxY.Text.ToString());
+                for (int i = 0; i < puntosOriginales.Count; i++)
+                {
+                    p.dibujar(puntosOriginales[i].GetColor(), puntosOriginales[i].GetX(), puntosOriginales[i].GetY(), this.xcentro, this.ycentro);
+
+
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se introdujo un tipo de dato correcto: " + ex.Message, "Una acción erronea ha ocurrido");
+            }
+
         }
 
         private void BtnAñadir_Click(object sender, EventArgs e)
         {
-            this.punto = new NodoPunto("Un punto", Convert.ToInt32(this.TxtBxX.Text), Convert.ToInt32(this.TxtBxY.Text), this.color);
-            this.puntosOriginales.Add(this.punto);
+            try
+            {
+                String nombre = TxtBxNombre.Text.ToString();
+                if (nombre.Length == 0)
+                    MessageBox.Show("Introduce un nombre al punto", "Una acción erronea ha ocurrido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                else
+                {
 
 
-            //this.dataGridView1.Rows.Add(this.puntosRotados);
-            object[] point = { this.punto.GetNombre(), this.punto.GetX(), this.punto.GetY() };
-            //object []point = { this.punto.GetNombre() , this.punto.GetY() , this.punto.GetY() , this.punto.GetColor().ToKnownColor() };
+                    this.punto = new NodoPunto(nombre, Convert.ToInt32(this.TxtBxX.Text), Convert.ToInt32(this.TxtBxY.Text), this.color);
+                    this.puntosOriginales.Add(this.punto);
 
-            ///Hacer condicion si agrega un nuevo punto con las mismas coordenadas
-            ///
-            //this.DataGridViewPuntos.Rows.
-            //Añadiendo valores del punto a una nueva fila y cambiando de color a la celda de color
 
-            this.DataGridViewPuntos.Rows.Add(point);
-            int TamR = this.DataGridViewPuntos.Rows.Count;
-            int TamC = this.DataGridViewPuntos.Rows[TamR - 1].Cells.Count;
-            this.DataGridViewPuntos.DefaultCellStyle.ForeColor = Color.Black;
-            this.DataGridViewPuntos.Rows[TamR - 2].Cells[TamC - 1].Style.BackColor = this.color;
+                    //this.dataGridView1.Rows.Add(this.puntosRotados);
+                    object[] point = { this.punto.GetNombre(), this.punto.GetX(), this.punto.GetY() };
+                    //object []point = { this.punto.GetNombre() , this.punto.GetY() , this.punto.GetY() , this.punto.GetColor().ToKnownColor() };
+
+                    ///Hacer condicion si agrega un nuevo punto con las mismas coordenadas
+                    ///
+                    //this.DataGridViewPuntos.Rows.
+                    //Añadiendo valores del punto a una nueva fila y cambiando de color a la celda de color
+
+                    this.DataGridViewPuntos.Rows.Add(point);
+                    int TamR = this.DataGridViewPuntos.Rows.Count;
+                    int TamC = this.DataGridViewPuntos.Rows[TamR - 1].Cells.Count;
+                    this.DataGridViewPuntos.DefaultCellStyle.ForeColor = Color.Black;
+                    this.DataGridViewPuntos.Rows[TamR - 2].Cells[TamC - 1].Style.BackColor = this.color;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se introdujo un tipo de dato correcto: " + ex.Message, "Una acción erronea ha ocurrido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
 
 
         }
@@ -136,7 +173,7 @@ namespace TransformacionesBidimensionales
             {
                 //Creando los nodos con los valores del punto
 
-                punto = new NodoPunto("Punto rotado", m[0][i], m[1][i], t.Colores[i]);
+                punto = new NodoPunto(this.puntosOriginales[i].GetNombre(), m[0][i], m[1][i], t.Colores[i]);
                 //Agregarndo a la lista de puntos 
                 this.puntosRotados.Add(this.punto);
                 //Haciendo un objeto para pasarlo a las Rows
@@ -172,6 +209,9 @@ namespace TransformacionesBidimensionales
 
         }
 
-        
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
