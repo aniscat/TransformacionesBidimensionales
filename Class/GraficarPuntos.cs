@@ -44,6 +44,10 @@ namespace TransformacionesBidimensionales.Class
 
             }
 
+            //using (Font myFont = new Font("Arial", 14))
+            //{
+            //    vector.DrawString("Hello .NET Guide!", myFont, Brushes.Green, new Point((ESCALA * Convert.ToInt32(x1), ESCALA * -Convert.ToInt32(y1)));
+            //}
 
             //Console.WriteLine(x1);
             vector = pictureBoxGrafica.CreateGraphics();

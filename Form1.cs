@@ -24,6 +24,7 @@ namespace TransformacionesBidimensionales
             //this.color = colorDialog1.Color;
             p = new GraficarPuntos(pictureBoxGrafica, colorDialog1.Color);
             this.puntosOriginales = new List<NodoPunto> { };
+            this.puntosRotados = new List<NodoPunto> { };
             //Para activar el tooltip
             this.toolTipEscribe.SetToolTip(this.TxtBxX, "Escribe la coodenada en x");
             this.toolTipEscribe.SetToolTip(this.TxtBxY, "Escribe la coodenada en y");
@@ -63,16 +64,9 @@ namespace TransformacionesBidimensionales
 
             this.puntosOriginales = new List<NodoPunto> { };
             this.puntosRotados = new List<NodoPunto> { };
-            if (this.puntosOriginales.Count != 0)
-            {
+ 
                 BtnGraficar_Click(sender, e);
-            }
-            if (this.puntosRotados.Count != 0)
-            {
                 BtnRotar_Click(sender, e);
-            }
-
-
 
         }
         //Esta funcion no me funciona ;(
@@ -102,55 +96,81 @@ namespace TransformacionesBidimensionales
         private void BtnGraficar_Click(object sender, EventArgs e)
         {
             //Pasar como parametro el color :)
-
-            try
+            for (int i = 0; i < this.puntosOriginales.Count; i++)
             {
-                double x1 = Convert.ToDouble(TxtBxX.Text.ToString());
-                double y1 = Convert.ToDouble(TxtBxY.Text.ToString());
-                for (int i = 0; i < puntosOriginales.Count; i++)
-                {
-                    p.dibujar(puntosOriginales[i].GetColor(), puntosOriginales[i].GetX(), puntosOriginales[i].GetY(), this.xcentro, this.ycentro);
-
-
-                }
+                p.dibujar(puntosOriginales[i].GetColor(), puntosOriginales[i].GetX(), puntosOriginales[i].GetY(), this.xcentro, this.ycentro);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("No se introdujo un tipo de dato correcto: " + ex.Message, "Una acción erronea ha ocurrido");
-            }
-
         }
 
         private void BtnAñadir_Click(object sender, EventArgs e)
         {
             try
             {
-                String nombre = TxtBxNombre.Text.ToString();
-                if (nombre.Length == 0)
-                    MessageBox.Show("Introduce un nombre al punto", "Una acción erronea ha ocurrido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                else
-                {
+                String nombre = TxtBxNombre.Text;
+                    char[] n = nombre.ToCharArray();
+                double x1 = Convert.ToDouble(TxtBxX.Text.ToString());
+                double y1 = Convert.ToDouble(TxtBxY.Text.ToString());
+                //if (nombre.Length == 0)
+                //      {
+
+                //MessageBox.Show("Introduce un nombre al punto", "Una acción erronea ha ocurrido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                //     return;       
+                //     }
+                //bool espacio=true;
+                //for (int i = 0; i < n.Length; i++)
+                //{
+                //    if (n[i] != ' ')
+                //    {
+                //    this.punto = new NodoPunto(nombre, Convert.ToInt32(this.TxtBxX.Text), Convert.ToInt32(this.TxtBxY.Text), this.color);
+                //    this.puntosOriginales.Add(this.punto);
 
 
-                    this.punto = new NodoPunto(nombre, Convert.ToInt32(this.TxtBxX.Text), Convert.ToInt32(this.TxtBxY.Text), this.color);
-                    this.puntosOriginales.Add(this.punto);
+                //    //this.dataGridView1.Rows.Add(this.puntosRotados);
+                //    object[] point = { this.punto.GetNombre(), this.punto.GetX(), this.punto.GetY() };
+                //    //object []point = { this.punto.GetNombre() , this.punto.GetY() , this.punto.GetY() , this.punto.GetColor().ToKnownColor() };
+
+                //    ///Hacer condicion si agrega un nuevo punto con las mismas coordenadas
+                //    ///
+                //    //this.DataGridViewPuntos.Rows.
+                //    //Añadiendo valores del punto a una nueva fila y cambiando de color a la celda de color
+
+                //    this.DataGridViewPuntos.Rows.Add(point);
+                //    int TamR = this.DataGridViewPuntos.Rows.Count;
+                //    int TamC = this.DataGridViewPuntos.Rows[TamR - 1].Cells.Count;
+                //    this.DataGridViewPuntos.DefaultCellStyle.ForeColor = Color.Black;
+                //    this.DataGridViewPuntos.Rows[TamR - 2].Cells[TamC - 1].Style.BackColor = this.color;
+                //    espacio = false;
+                //    break;
+
+                //    }
+                //}  
+                this.punto = new NodoPunto(nombre, x1, y1, this.color);
+                this.puntosOriginales.Add(this.punto);
 
 
-                    //this.dataGridView1.Rows.Add(this.puntosRotados);
-                    object[] point = { this.punto.GetNombre(), this.punto.GetX(), this.punto.GetY() };
-                    //object []point = { this.punto.GetNombre() , this.punto.GetY() , this.punto.GetY() , this.punto.GetColor().ToKnownColor() };
+                //this.dataGridView1.Rows.Add(this.puntosRotados);
+                object[] point = { this.punto.GetNombre(), this.punto.GetX(), this.punto.GetY() };
+                //object []point = { this.punto.GetNombre() , this.punto.GetY() , this.punto.GetY() , this.punto.GetColor().ToKnownColor() };
 
-                    ///Hacer condicion si agrega un nuevo punto con las mismas coordenadas
-                    ///
-                    //this.DataGridViewPuntos.Rows.
-                    //Añadiendo valores del punto a una nueva fila y cambiando de color a la celda de color
+                ///Hacer condicion si agrega un nuevo punto con las mismas coordenadas
+                ///
+                //this.DataGridViewPuntos.Rows.
+                //Añadiendo valores del punto a una nueva fila y cambiando de color a la celda de color
 
-                    this.DataGridViewPuntos.Rows.Add(point);
-                    int TamR = this.DataGridViewPuntos.Rows.Count;
-                    int TamC = this.DataGridViewPuntos.Rows[TamR - 1].Cells.Count;
-                    this.DataGridViewPuntos.DefaultCellStyle.ForeColor = Color.Black;
-                    this.DataGridViewPuntos.Rows[TamR - 2].Cells[TamC - 1].Style.BackColor = this.color;
-                }
+                this.DataGridViewPuntos.Rows.Add(point);
+                int TamR = this.DataGridViewPuntos.Rows.Count;
+                int TamC = this.DataGridViewPuntos.Rows[TamR - 1].Cells.Count;
+                this.DataGridViewPuntos.DefaultCellStyle.ForeColor = Color.Black;
+                this.DataGridViewPuntos.Rows[TamR - 2].Cells[TamC - 1].Style.BackColor = this.color;
+                //espacio = false;
+                //break;
+                //if (espacio)
+                //    {
+                //    MessageBox.Show("Introduce un nombre válido: " , "Una acción erronea ha ocurrido", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                //    }
+                  
+                
             }
 
             catch (Exception ex)
@@ -164,11 +184,14 @@ namespace TransformacionesBidimensionales
         private void BtnRotar_Click(object sender, EventArgs e)
         {
             //Llamada a la función rotar
-            //double ang = Convert.ToDouble(TxtBxGrados.Text);
-            double ang = 90;
+            string str = TxtBxGrados.Text.ToString();
+            if (str == "")
+                return;
+            double ang = Convert.ToDouble(TxtBxGrados.Text);
+            //double ang = 90;
             Transformaciones t = new Transformaciones(this.puntosOriginales);
             double[][] m = t.Rotar(ang);
-            this.puntosRotados = new List<NodoPunto> { };
+            //this.puntosRotados = new List<NodoPunto> { };
             for (int i = 0; i < m[0].Length; i++)
             {
                 //Creando los nodos con los valores del punto
@@ -210,6 +233,11 @@ namespace TransformacionesBidimensionales
         }
 
         private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBoxGrafica_Click(object sender, EventArgs e)
         {
 
         }
