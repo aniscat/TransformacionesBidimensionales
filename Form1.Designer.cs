@@ -510,7 +510,10 @@ namespace TransformacionesBidimensionales
             this.pictureBoxGrafica.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBoxGrafica.TabIndex = 1;
             this.pictureBoxGrafica.TabStop = false;
+            this.pictureBoxGrafica.WaitOnLoad = true;
+            this.pictureBoxGrafica.Click += new System.EventHandler(this.pictureBoxGrafica_Click);
             this.pictureBoxGrafica.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBoxGrafica_Paint);
+            this.pictureBoxGrafica.Resize += new System.EventHandler(this.Graficadora_SizeChanged);
             // 
             // toolTipEscribe
             // 
